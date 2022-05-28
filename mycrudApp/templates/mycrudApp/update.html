@@ -1,0 +1,41 @@
+{% extends 'mycrudApp/base.html' %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="alert alert-info text-center display-6 text-uppercase fw-bolder">Update Data</p>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">{{ form.stu_name.label }}</label>
+                                {{ form.stu_name }}
+                                {% if form.errors %}
+                                    {{ form.stu_name.errors }}
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">{{ form.mobile_no.label }}</label>
+                                {{ form.mobile_no }}
+                                {% if form.errors %}
+                                    {{ form.mobile_no.errors }}
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">{{ form.age.label }}</label>
+                                {{ form.age }}
+                                {% if form.errors %}
+                                    {{ form.age.errors }}
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

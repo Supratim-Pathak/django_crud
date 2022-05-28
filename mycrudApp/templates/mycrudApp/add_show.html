@@ -1,0 +1,96 @@
+{% extends 'mycrudApp/base.html' %}
+{% block content %}
+    <style>
+        .errorlist{
+            list-style-type: none;
+            color: red;
+        }
+    </style>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-6 col-lg-6  alert alert-danger mt-5 text-center offset-3">
+                <h1 class="display-6 text-uppercase"><i class="fa-solid fa-walking" style="user-select: auto;"></i>Student Registration Form<i class="fa-solid fa-walking" style="user-select: auto;"></i></h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-flex">
+        <div class="col-md-6 col-lg-6 col-sm-6  border border-danger">
+            <div class="alert alert-danger">
+                <span class="display-6"><i class="fa-solid fa-address-book icon"></i>Add Student</span>
+            </div>
+            <div class="card">
+                <div class="card-body">
+               
+                    <form method="POST" action="" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                          <label for="stu_name" class="form-label">{{ form.stu_name.label }}</label>
+                          {{ form.stu_name }}
+
+                            {% if form.errors %}
+                            {{ form.stu_name.errors }}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                          <label for="mobile_no" class="form-label">{{ form.mobile_no.label }}</label>
+                          {{ form.mobile_no }}
+                          {% if form.errors %}
+                            {{ form.mobile_no.errors }}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                          <label for="age" class="form-label">{{ form.age.label }}</label>
+                          {{ form.age }}
+                          {% if form.errors %}
+                            {{ form.age.errors }}
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-md-6 col-lg-6 col-sm-6 text-center border border-danger">
+            <div class="alert alert-danger">
+                <span class="display-6"><i class="fa fa-list-check listIcon"></i>Student List</span>
+            </div>
+            <div class="">
+                {% if data %}
+                <table class="table table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Mobile No</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for da in data %}
+                        <tr>
+                        <td scope="row">{{ forloop.counter }}</td>
+                        <td>{{ da.stu_name }}</td>
+                        <td>{{ da.mobile_no }}</td>
+                        <td>{{ da.age }}</td>
+                        <td>
+
+                            <a href="{% url 'updateData' da.id %}" class="btn btn-warning">Edit</a>
+                            
+                        </td>
+                        <td>
+                            <form action="{% url 'deleteData' da.id %}" method="POST" >
+                                {% csrf_token %}
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+        </div>
+    </div>
+    </div>  
+{% endblock content %}
